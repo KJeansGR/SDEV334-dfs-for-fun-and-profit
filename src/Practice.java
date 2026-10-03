@@ -105,18 +105,12 @@ public class Practice {
     while (!stack.isEmpty()) { 
       Vertex<Integer> cur = stack.pop();  
       
-      // if(cur == null){
-      //   return Integer.MIN_VALUE;
-      // }
-
       max = Math.max(max, cur.data);
 
       for (var v : cur.neighbors) {
-        if(cur != null){
           if(seen.add(v)){
             stack.push(v);
           }
-        }
       }
     }
     return max;
@@ -134,7 +128,36 @@ public class Practice {
    * @return A set containing all reachable leaf vertices, or an empty set if vertex is null.
    */
   public <T> Set<Vertex<T>> leaves(Vertex<T> vertex) {
-    return null;
+
+    Set<Vertex<T>> answer = new HashSet<>();
+
+    if (vertex == null) {
+      return answer;
+    }
+    if(vertex.neighbors.isEmpty()){
+      answer.add(vertex);
+      return answer;
+    }
+
+    Stack<Vertex<T>> stack = new Stack<>();
+    Set<Vertex<T>> seen = new HashSet<>();
+
+    stack.push(vertex);
+    seen.add(vertex);
+
+    while (!stack.isEmpty()) { 
+      Vertex<T> cur = stack.pop();  
+
+      for (var v : cur.neighbors) {
+        if(seen.add(v)){
+          stack.push(v);
+          if(v.neighbors.isEmpty()){
+            answer.add(v);
+          }
+        }
+      }
+    }
+    return answer;
   }
 
 
