@@ -1,5 +1,4 @@
-import java.util.Set;
-
+import java.util.*;
 /**
  * A utility class providing various graph traversal methods using DFS.
  */
@@ -18,6 +17,29 @@ public class Practice {
    * @param vertex The starting vertex for the traversal.
    */
   public <T> void printVertexVals(Vertex<T> vertex) {
+    if (vertex == null) {
+        return;
+    }
+
+    Stack<Vertex<T>> stack = new Stack<>();
+    Set<Vertex<T>> seen = new HashSet<>();
+
+    stack.push(vertex);
+    seen.add(vertex);
+
+    //This is Iterative not recursive
+    while (!stack.isEmpty()) { 
+      Vertex<T> cur = stack.pop();  
+      if(cur == null){
+        return;
+      }
+      for (var v : cur.neighbors) {
+        if(seen.add(v)){
+          stack.push(v);
+        }
+      }
+      System.out.println(cur.data);
+    }
   }
 
   /**
