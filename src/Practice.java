@@ -89,7 +89,37 @@ public class Practice {
    * @return The maximum value of any reachable vertex, or Integer.MIN_VALUE if vertex is null.
    */
   public int max(Vertex<Integer> vertex) {
-    return -1;
+    int max = Integer.MIN_VALUE;
+    
+    if (vertex == null) {
+      return max;
+    }
+
+    Stack<Vertex<Integer>> stack = new Stack<>();
+    Set<Vertex<Integer>> seen = new HashSet<>();
+
+    stack.push(vertex);
+    seen.add(vertex);
+
+    //This is Iterative not recursive
+    while (!stack.isEmpty()) { 
+      Vertex<Integer> cur = stack.pop();  
+      
+      // if(cur == null){
+      //   return Integer.MIN_VALUE;
+      // }
+
+      max = Math.max(max, cur.data);
+
+      for (var v : cur.neighbors) {
+        if(cur != null){
+          if(seen.add(v)){
+            stack.push(v);
+          }
+        }
+      }
+    }
+    return max;
   }
 
   /**
