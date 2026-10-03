@@ -172,6 +172,27 @@ public class Practice {
    * @return true if all reachable vertices hold odd values, false otherwise
    */
   public boolean allOdd(Vertex<Integer> vertex) {
+    if (vertex == null) {
+      return false;
+    }
+
+    Stack<Vertex<Integer>> stack = new Stack<>();
+    Set<Vertex<Integer>> seen = new HashSet<>();
+
+    stack.push(vertex);
+    seen.add(vertex);
+
+    while (!stack.isEmpty()) { 
+      Vertex<Integer> cur = stack.pop();  
+      if(cur.data %2 != 1){
+        return false;
+      }
+      for (var v : cur.neighbors) {
+        if(seen.add(v)){
+          stack.push(v);
+        }
+      }
+    }
     return true;
   }
 
