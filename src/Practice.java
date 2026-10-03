@@ -52,7 +52,31 @@ public class Practice {
    * @return A set containing all reachable vertices, or an empty set if vertex is null.
    */
   public <T> Set<Vertex<T>> reachable(Vertex<T> vertex) {
-    return null;
+    Set<Vertex<T>> seen = new HashSet<>();
+     if (vertex == null) {
+        return seen;
+    }
+
+    Stack<Vertex<T>> stack = new Stack<>();
+    //Set<Vertex<T>> seen = new HashSet<>();
+
+    stack.push(vertex);
+    seen.add(vertex);
+
+    //This is Iterative not recursive
+    while (!stack.isEmpty()) { 
+      Vertex<T> cur = stack.pop();  
+      if(cur == null){
+        return seen;
+      }
+      for (var v : cur.neighbors) {
+        if(seen.add(v)){
+          stack.push(v);
+        }
+      }
+      // System.out.println(cur.data);
+    }
+    return seen;
   }
 
   /**
